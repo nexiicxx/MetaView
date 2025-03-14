@@ -27,146 +27,14 @@
                 <div class="team-header">
                     <h2 class="ct-header">Counter-Terrorists</h2>
                 </div>
-                <div class="player-list" id="ct-list">
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">RO</div>
-                            <span class="player-name">ropz</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">TW</div>
-                            <span class="player-name">Twistzz</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">RA</div>
-                            <span class="player-name">rain</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">BR</div>
-                            <span class="player-name">broky</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">KA</div>
-                            <span class="player-name">karrigan</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                <div class="player-list" id="ct-list"></div>
             </div>
 
             <div class="team-section t-section">
                 <div class="team-header">
                     <h2 class="t-header">Terrorists</h2>
                 </div>
-                <div class="player-list" id="t-list">
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar t-avatar">S1</div>
-                            <span class="player-name">s1mple</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar t-avatar">NI</div>
-                            <span class="player-name">NiKo</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar t-avatar">M0</div>
-                            <span class="player-name">m0NESY</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar t-avatar">HU</div>
-                            <span class="player-name">huNter</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar t-avatar">JK</div>
-                            <span class="player-name">jks</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                <div class="player-list" id="t-list"></div>
             </div>
         </div>
 
@@ -175,26 +43,24 @@
                 <div class="team-header">
                     <h2>Saved Players</h2>
                 </div>
-                <div class="player-list" id="saved-list">
-                    <div class="player-card">
-                        <div class="player-info">
-                            <div class="player-avatar ct-avatar">DE</div>
-                            <span class="player-name">device</span>
-                        </div>
-                        <button class="menu-button">
-                            <div class="menu-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                <div class="player-list" id="saved-list"></div>
             </div>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { PlayerList } from '../components/PlayerList.js';
+
+        // Initialize player lists
+        const ctPlayers = new PlayerList('ct-list', 'ct');
+        const tPlayers = new PlayerList('t-list', 't');
+        const savedPlayers = new PlayerList('saved-list', 'ct');
+
+        // Add saved player example
+        savedPlayers.addPlayer('device');
+        savedPlayers.render();
+
+        // Handle tab navigation
         const tabs = document.querySelectorAll('.tab-button');
         const views = document.querySelectorAll('.view-container');
 
@@ -205,7 +71,6 @@
                 if (targetView.classList.contains('active')) return;
 
                 tabs.forEach(t => t.classList.remove('active'));
-                
                 tab.classList.add('active');
 
                 views.forEach(view => {
@@ -225,54 +90,12 @@
             });
         });
 
-        document.querySelectorAll('.menu-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const playerCard = e.target.closest('.player-card');
-                const playerName = playerCard.querySelector('.player-name').textContent;
-                const isSaved = playerCard.closest('#saved-list') !== null;
-            });
+        // Clean up when window unloads
+        window.addEventListener('unload', () => {
+            ctPlayers.destroy();
+            tPlayers.destroy();
+            savedPlayers.destroy();
         });
-
-        document.querySelectorAll('.player-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const playerName = card.querySelector('.player-name').textContent;
-                const team = card.closest('.ct-section') ? 'ct' : 't';
-                
-                document.body.style.opacity = '0';
-                document.body.style.transition = 'opacity 0.3s ease';
-                
-                setTimeout(() => {
-                    window.location.href = `details.html?name=${encodeURIComponent(playerName)}&team=${team}`;
-                }, 300);
-            });
-        });
-
-        function loadSavedPlayers() {
-            const savedPlayers = JSON.parse(localStorage.getItem('savedPlayers') || '[]');
-            const savedList = document.getElementById('saved-list');
-            
-            savedList.innerHTML = '';
-            
-            savedPlayers.forEach(player => {
-                const playerCard = document.createElement('div');
-                playerCard.className = 'player-card';
-                playerCard.innerHTML = `
-                    <div class="player-info">
-                        <div class="player-avatar ${player.team}-avatar">${player.initials}</div>
-                        <span class="player-name">${player.name}</span>
-                    </div>
-                    <button class="menu-button">
-                        <div class="menu-dots">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </button>
-                `;
-                savedList.appendChild(playerCard);
-            });
-        }
     </script>
 </body>
 </html> 

@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "main": "src/app.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "server": "node src/server"
   },
   "author": "nexiicx",
   "license": "ISC",
   "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3"
+  },
   "devDependencies": {
     "electron": "^35.0.1",
     "electron-squirrel-startup": "^1.0.1"
