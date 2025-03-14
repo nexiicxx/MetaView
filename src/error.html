@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/error.css">
+</head>
+<body>
+    <div class="container">
+        <div class="error-section">
+            <div class="error-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <div class="error-content">
+                <div class="error-code" id="errorCode">404</div>
+                <div class="error-title" id="errorTitle">Page Not Found</div>
+                <div class="error-description" id="errorDescription">
+                    The page you are looking for might have been removed.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const title = urlParams.get('title');
+        const description = urlParams.get('description');
+
+        if (code) document.getElementById('errorCode').textContent = code;
+        if (title) document.getElementById('errorTitle').textContent = title;
+        if (description) document.getElementById('errorDescription').textContent = description;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            requestAnimationFrame(() => {
+                document.body.style.transition = 'opacity 0.3s ease';
+                document.body.style.opacity = '1';
+                
+                setTimeout(() => {
+                    document.querySelector('.container').classList.add('loaded');
+                }, 100);
+            });
+        });
+
+        setTimeout(() => {
+            document.body.style.opacity = '0';
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 200);
+        }, 3000);
+    </script>
+</body>
+</html> 

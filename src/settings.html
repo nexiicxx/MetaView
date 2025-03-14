@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/settings.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-button">
+                ← Back to Player List
+            </a>
+        </div>
+        <div class="settings-section">
+            <h1 class="section-title">Settings</h1>
+            
+            <div class="settings-group">
+                <h2 class="group-title">Interface</h2>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Dark Mode</div>
+                        <div class="setting-description">Enable dark theme for the application</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Animations</div>
+                        <div class="setting-description">Enable smooth transitions and animations</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h2 class="group-title">Player List</h2>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Auto-refresh</div>
+                        <div class="setting-description">Automatically update player status</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch"></div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Show Offline Players</div>
+                        <div class="setting-description">Display players who are currently offline</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h2 class="group-title">Notifications</h2>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Player Status</div>
+                        <div class="setting-description">Get notified when players join or leave</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Match Updates</div>
+                        <div class="setting-description">Receive notifications about match results</div>
+                    </div>
+                    <div class="setting-control">
+                        <div class="toggle-switch"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h2 class="group-title">Debug Tools</h2>
+                <div class="setting-item">
+                    <div>
+                        <div class="setting-label">Test Error Page</div>
+                        <div class="setting-description">Trigger error page for testing</div>
+                    </div>
+                    <div class="setting-control">
+                        <button id="test-error" class="debug-button">Test Error</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            requestAnimationFrame(() => {
+                document.body.style.transition = 'opacity 0.3s ease';
+                document.body.style.opacity = '1';
+                
+                setTimeout(() => {
+                    document.querySelector('.container').classList.add('loaded');
+                }, 100);
+            });
+        });
+
+        document.querySelector('.back-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.style.opacity = '0';
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                window.location.href = e.target.href;
+            }, 200);
+        });
+
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+            });
+        });
+
+        document.getElementById('test-error').addEventListener('click', () => {
+            document.body.style.opacity = '0';
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                window.location.href = 'error.html?code=500&title=Test Error&description=This is a test error page triggered from settings';
+            }, 200);
+        });
+    </script>
+</body>
+</html> 

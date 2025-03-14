@@ -1,0 +1,105 @@
+.player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.player-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.player-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.player-list::-webkit-scrollbar-thumb {
+    background: var(--text-secondary);
+    border-radius: 4px;
+}
+
+.player-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-primary);
+}
+
+.player-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--card-highlight);
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.player-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.ct-avatar {
+    background: rgba(89, 137, 255, 0.15);
+    color: var(--ct-color);
+}
+
+.t-avatar {
+    background: rgba(255, 89, 89, 0.15);
+    color: var(--t-color);
+}
+
+.player-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.menu-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.menu-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.dot {
+    width: 3px;
+    height: 3px;
+    background-color: currentColor;
+    border-radius: 50%;
+} 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Player Details</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/user-details.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">
+            ← Back to Player List
+        </a>
+        <div class="profile-section">
+            <div class="profile-header">
+                <div id="playerAvatar" class="profile-avatar"></div>
+                <div class="profile-info">
+                    <h1 id="playerName">Loading...</h1>
+                    <span id="teamTag" class="team-tag">Loading...</span>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">K/D Ratio</div>
+                    <div class="stat-value">1.45</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Headshot %</div>
+                    <div class="stat-value">68.2%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Win Rate</div>
+                    <div class="stat-value">58%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Hours Played</div>
+                    <div class="stat-value">1,234</div>
+                </div>
+            </div>
+
+            <div class="recent-matches">
+                <h2 class="section-title">Recent Matches</h2>
+                <div class="match-list">
+                    <div class="match-item">
+                        <span class="match-map">de_dust2</span>
+                        <span class="match-score">16:14</span>
+                        <span class="match-kda">24/12/8</span>
+                    </div>
+                    <div class="match-item">
+                        <span class="match-map">de_mirage</span>
+                        <span class="match-score">16:7</span>
+                        <span class="match-kda">31/15/4</span>
+                    </div>
+                    <div class="match-item">
+                        <span class="match-map">de_inferno</span>
+                        <span class="match-score">13:16</span>
+                        <span class="match-kda">18/20/11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '1';
+            
+            setTimeout(() => {
+                document.querySelector('.container').classList.add('loaded');
+            }, 100);
+        });
+
+        document.querySelector('.back-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.style.opacity = '0';
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 250);
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('name');
+        const team = urlParams.get('team');
+
+        if (playerName && team) {
+            document.getElementById('playerName').textContent = playerName;
+            const avatar = document.getElementById('playerAvatar');
+            const teamTag = document.getElementById('teamTag');
+            
+            if (team === 'ct') {
+                avatar.className = 'profile-avatar ct-profile';
+                teamTag.className = 'team-tag ct-tag';
+                teamTag.textContent = 'Counter-Terrorist';
+            } else {
+                avatar.className = 'profile-avatar t-profile';
+                teamTag.className = 'team-tag t-tag';
+                teamTag.textContent = 'Terrorist';
+            }
+
+            avatar.textContent = playerName.split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase();
+        }
+    </script>
+</body>
+</html> 

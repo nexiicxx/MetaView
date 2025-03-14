@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Player List</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/player-card.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tab-navigation">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-view="active-players">Active Players</button>
+                <button class="tab-button" data-view="saved-players">Saved Players</button>
+            </div>
+            <a href="settings.html" class="settings-button">
+                <svg class="settings-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="view-container active" id="active-players">
+            <div class="team-section ct-section">
+                <div class="team-header">
+                    <h2 class="ct-header">Counter-Terrorists</h2>
+                </div>
+                <div class="player-list" id="ct-list">
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">RO</div>
+                            <span class="player-name">ropz</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">TW</div>
+                            <span class="player-name">Twistzz</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">RA</div>
+                            <span class="player-name">rain</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">BR</div>
+                            <span class="player-name">broky</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">KA</div>
+                            <span class="player-name">karrigan</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section t-section">
+                <div class="team-header">
+                    <h2 class="t-header">Terrorists</h2>
+                </div>
+                <div class="player-list" id="t-list">
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar t-avatar">S1</div>
+                            <span class="player-name">s1mple</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar t-avatar">NI</div>
+                            <span class="player-name">NiKo</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar t-avatar">M0</div>
+                            <span class="player-name">m0NESY</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar t-avatar">HU</div>
+                            <span class="player-name">huNter</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar t-avatar">JK</div>
+                            <span class="player-name">jks</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-container" id="saved-players">
+            <div class="team-section">
+                <div class="team-header">
+                    <h2>Saved Players</h2>
+                </div>
+                <div class="player-list" id="saved-list">
+                    <div class="player-card">
+                        <div class="player-info">
+                            <div class="player-avatar ct-avatar">DE</div>
+                            <span class="player-name">device</span>
+                        </div>
+                        <button class="menu-button">
+                            <div class="menu-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-button');
+        const views = document.querySelectorAll('.view-container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetView = document.getElementById(tab.dataset.view);
+                
+                if (targetView.classList.contains('active')) return;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                tab.classList.add('active');
+
+                views.forEach(view => {
+                    if (view.classList.contains('active')) {
+                        view.style.opacity = '0';
+                        view.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            view.classList.remove('active');
+                            targetView.classList.add('active');
+                            requestAnimationFrame(() => {
+                                targetView.style.opacity = '1';
+                                targetView.style.transform = 'translateY(0)';
+                            });
+                        }, 200);
+                    }
+                });
+            });
+        });
+
+        document.querySelectorAll('.menu-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const playerCard = e.target.closest('.player-card');
+                const playerName = playerCard.querySelector('.player-name').textContent;
+                const isSaved = playerCard.closest('#saved-list') !== null;
+            });
+        });
+
+        document.querySelectorAll('.player-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const playerName = card.querySelector('.player-name').textContent;
+                const team = card.closest('.ct-section') ? 'ct' : 't';
+                
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    window.location.href = `userDetails.html?name=${encodeURIComponent(playerName)}&team=${team}`;
+                }, 300);
+            });
+        });
+
+        function loadSavedPlayers() {
+            const savedPlayers = JSON.parse(localStorage.getItem('savedPlayers') || '[]');
+            const savedList = document.getElementById('saved-list');
+            
+            savedList.innerHTML = '';
+            
+            savedPlayers.forEach(player => {
+                const playerCard = document.createElement('div');
+                playerCard.className = 'player-card';
+                playerCard.innerHTML = `
+                    <div class="player-info">
+                        <div class="player-avatar ${player.team}-avatar">${player.initials}</div>
+                        <span class="player-name">${player.name}</span>
+                    </div>
+                    <button class="menu-button">
+                        <div class="menu-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </button>
+                `;
+                savedList.appendChild(playerCard);
+            });
+        }
+    </script>
+</body>
+</html> 

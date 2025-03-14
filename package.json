@@ -1,0 +1,15 @@
+{
+  "name": "metaview",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "nexiicx",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^35.0.1",
+    "electron-squirrel-startup": "^1.0.1"
+  }
+}

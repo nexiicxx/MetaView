@@ -1,0 +1,135 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+
+.tab-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 4px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 16px var(--shadow-color);
+}
+
+.tab-buttons {
+    display: flex;
+    flex: 1;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.tab-button.active {
+    background: var(--tab-active);
+    color: var(--text-primary);
+}
+
+.tab-button:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+.view-container {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+}
+
+.view-container.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    pointer-events: all;
+}
+
+.team-section {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.ct-section {
+    background: linear-gradient(180deg, rgba(89, 137, 255, 0.1) 0%, var(--card-bg) 100px);
+}
+
+.t-section {
+    background: linear-gradient(180deg, rgba(255, 89, 89, 0.1) 0%, var(--card-bg) 100px);
+}
+
+.team-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.team-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.ct-header {
+    color: var(--ct-color);
+}
+
+.t-header {
+    color: var(--t-color);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+.settings-button {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 8px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+}
+
+.settings-button:hover {
+    color: var(--text-primary);
+}
+
+.settings-icon {
+    width: 20px;
+    height: 20px;
+} 
