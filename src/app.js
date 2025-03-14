@@ -18,7 +18,7 @@ const createWindow = () => {
     },
   });
 
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, 'pages', 'index.html'));
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
