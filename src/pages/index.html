@@ -50,45 +50,80 @@
 
     <script type="module">
         import { PlayerList } from '../components/PlayerList.js';
+        const configManager = require('../utils/config');
 
         // Initialize player lists
         const ctPlayers = new PlayerList('ct-list', 'ct');
         const tPlayers = new PlayerList('t-list', 't');
-        const savedPlayers = new PlayerList('saved-list', 'ct');
+        const savedPlayers = new PlayerList('saved-list', 'saved');
 
-        // Add saved player example
-        savedPlayers.addPlayer('device');
-        savedPlayers.render();
+        // Load saved players from config
+        const loadSavedPlayers = () => {
+            const savedPlayersList = configManager.loadSavedPlayers();
+            savedPlayers.clearPlayers();
+            savedPlayersList.forEach(player => {
+                savedPlayers.addPlayer(player.name, player.steamid64);
+            });
+            savedPlayers.render();
+        };
+
+        // Initial load of saved players
+        loadSavedPlayers();
+
+        // Listen for save/unsave events
+        window.addEventListener('playerSaved', (event) => {
+            loadSavedPlayers();
+        });
+
+        window.addEventListener('playerUnsaved', (event) => {
+            loadSavedPlayers();
+        });
 
         // Handle tab navigation
         const tabs = document.querySelectorAll('.tab-button');
         const views = document.querySelectorAll('.view-container');
 
+        function switchTab(targetId) {
+            const targetView = document.getElementById(targetId);
+            
+            // Update tab buttons
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.view === targetId);
+            });
+
+            // Update view containers
+            views.forEach(view => {
+                if (view === targetView) {
+                    view.classList.add('active');
+                    view.style.opacity = '1';
+                    view.style.transform = 'translateY(0)';
+                } else {
+                    view.classList.remove('active');
+                    view.style.opacity = '0';
+                    view.style.transform = 'translateY(-10px)';
+                }
+            });
+
+            // Save current tab to localStorage
+            localStorage.setItem('activeTab', targetId);
+
+            // If switching to saved players, refresh the list
+            if (targetId === 'saved-players') {
+                loadSavedPlayers();
+            }
+        }
+
+        // Add click handlers to tabs
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                const targetView = document.getElementById(tab.dataset.view);
-                
-                if (targetView.classList.contains('active')) return;
-
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                views.forEach(view => {
-                    if (view.classList.contains('active')) {
-                        view.style.opacity = '0';
-                        view.style.transform = 'translateY(-10px)';
-                        setTimeout(() => {
-                            view.classList.remove('active');
-                            targetView.classList.add('active');
-                            requestAnimationFrame(() => {
-                                targetView.style.opacity = '1';
-                                targetView.style.transform = 'translateY(0)';
-                            });
-                        }, 200);
-                    }
-                });
+                const targetView = tab.dataset.view;
+                switchTab(targetView);
             });
         });
+
+        // Restore last active tab
+        const lastActiveTab = localStorage.getItem('activeTab') || 'active-players';
+        switchTab(lastActiveTab);
 
         // Clean up when window unloads
         window.addEventListener('unload', () => {

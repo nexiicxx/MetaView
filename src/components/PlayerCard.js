@@ -6,6 +6,7 @@ export class PlayerCard {
         this.initials = initials || this.generateInitials(name);
         this.element = null;
         this.activePopup = null;
+        this.configManager = require('../utils/config');
     }
 
     generateInitials(name) {
@@ -30,10 +31,16 @@ export class PlayerCard {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         `;
 
+        const isSaved = this.configManager.isPlayerSaved(this.steamid64);
+        
         const menuItems = [
             {
                 label: 'View Steam Profile',
                 onClick: () => window.open(`https://steamcommunity.com/profiles/${this.steamid64}`, '_blank')
+            },
+            {
+                label: isSaved ? 'Remove from Saved' : 'Save Player',
+                onClick: () => this.toggleSavePlayer()
             }
         ];
 
@@ -67,6 +74,34 @@ export class PlayerCard {
         });
 
         return popup;
+    }
+
+    toggleSavePlayer() {
+        const playerData = {
+            name: this.name,
+            team: this.team,
+            steamid64: this.steamid64,
+            initials: this.initials
+        };
+
+        if (this.configManager.isPlayerSaved(this.steamid64)) {
+            this.configManager.removePlayer(this.steamid64);
+            // Dispatch event to notify that player was removed
+            window.dispatchEvent(new CustomEvent('playerUnsaved', { detail: playerData }));
+        } else {
+            this.configManager.savePlayer(playerData);
+            // Dispatch event to notify that player was saved
+            window.dispatchEvent(new CustomEvent('playerSaved', { detail: playerData }));
+        }
+
+        // Update the UI if needed
+        if (this.element) {
+            const menuButton = this.element.querySelector('.menu-button');
+            if (menuButton && this.activePopup) {
+                this.activePopup.remove();
+                this.activePopup = null;
+            }
+        }
     }
 
     mount() {

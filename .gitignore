@@ -5,6 +5,12 @@ node_modules/
 dist/
 build/
 
+# Temp key dir
+keys.js
+
+# Data dir
+data/
+
 # Logs
 logs
 *.log

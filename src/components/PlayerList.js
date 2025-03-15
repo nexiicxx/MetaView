@@ -41,8 +41,12 @@ export class PlayerList {
         };
     }
 
-    addPlayer(player) {
-        this.players.push(player);
+    clearPlayers() {
+        this.players = [];
+    }
+
+    addPlayer(name, steamid64) {
+        this.players.push({ name, steamid64 });
     }
 
     render() {

@@ -1,5 +1,7 @@
+const { STEAM_KEY } = require("keys.js");
+
 export class SteamAPI {
-    constructor(key = "") {
+    constructor(key = STEAM_KEY) {
         this.api_key = key;
         this.base_url = "https://api.steampowered.com";
     }
