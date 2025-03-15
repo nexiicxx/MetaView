@@ -25,7 +25,10 @@ local valve_source2 = fantasy.engine.source2()
 
 function metaview.on_worker()
 
+    
     metaview.fetch_player_data()
+    
+
 
     --[[
         local localplayer = entity_list:get_localplayer()
@@ -62,7 +65,7 @@ function metaview.fetch_player_data()
         
         local player_health = player_pawn:read( MEM_INT, valve_source2:get_schema("C_BaseEntity", "m_iHealth") )
         local player_team = player_pawn:read( MEM_INT, valve_source2:get_schema( "C_BaseEntity", "m_iTeamNum" ) )
-        local player_steam_id = player_pawn:read( MEM_INT, valve_source2:get_schema( "CBasePlayerController", "m_steamID"))
+        local player_steam_id = entity:read( MEM_INT, valve_source2:get_schema( "CBasePlayerController", "m_steamID"))
         
         local name_ptr = entity:read( MEM_ADDRESS, valve_source2:get_schema( "CCSPlayerController", "m_sSanitizedPlayerName" ) )
         if not name_ptr then return end
@@ -82,11 +85,11 @@ function metaview.fetch_player_data()
     local current_time = os.clock()
 
     -- send data each 30 sec
-    if current_time - last_execution < 30 then
+    if current_time - last_execution >= 10 then
         metaview.send_game_data(players_data)
-    end
 
-    last_execution = current_time  
+        last_execution = current_time
+    end
 end
 
 function metaview.send_game_data(players_data)

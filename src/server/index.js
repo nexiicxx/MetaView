@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { steam_id } = require('../utils/steam');
+const { steam_id, SteamID } = require('../utils/steam');
 const playerStore = require('./store');
 
 class Server {
@@ -9,6 +9,7 @@ class Server {
         this.port = port;
         this.app = express();
         this.isRunning = false;
+        this.clients = new Set();
         this.setupMiddleware();
         this.setupRoutes();
         this.setupErrorHandling();
@@ -38,7 +39,7 @@ class Server {
 
         this.app.get("/api/steam/:id", (req, res) => {
             const { id } = req.params;
-            const { legacy, steam64 } = steam_id.from_account_id(id);
+            const { legacy, steam64 } = SteamID.from_account_id(id);
             res.json({
                 status: 'ok',
                 steamid64: steam64.toString(),  // convert BigInt to string
@@ -47,11 +48,34 @@ class Server {
             });
         });
 
-        // Get current players
+        // Get current players with SSE
         this.app.get("/api/players", (req, res) => {
-            res.json({
+            // Set SSE headers
+            res.writeHead(200, {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive'
+            });
+
+            // Send initial data
+            const data = JSON.stringify({
                 status: 'ok',
                 players: playerStore.getPlayers()
+            });
+            res.write(`data: ${data}\n\n`);
+
+            // Keep connection alive
+            const keepAlive = setInterval(() => {
+                res.write(': keepalive\n\n');
+            }, 30000);
+
+            // Add this client to our set
+            this.clients.add(res);
+
+            // Handle client disconnect
+            req.on('close', () => {
+                clearInterval(keepAlive);
+                this.clients.delete(res);
             });
         });
         
@@ -71,9 +95,18 @@ class Server {
                     const players = playerStore.updatePlayers(parsedBody);
                     //console.log("Updated players:", players);
         
+                    // Send updates to all connected clients
+                    const updateData = JSON.stringify({
+                        status: 'ok',
+                        players: players
+                    });
+                    
+                    this.clients.forEach(client => {
+                        client.write(`data: ${updateData}\n\n`);
+                    });
+        
                     res.json({
-                        status: 'success',
-                        //players: players
+                        status: 'success'
                     });
                 } catch (error) {
                     console.error("Error processing game data:", error);

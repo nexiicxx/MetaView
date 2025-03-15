@@ -1,5 +1,5 @@
-const steam_id = {
-    to_steam64: function(steamid) {
+const SteamID = {
+    toSteam64: function(steamid) {
         let steam64id = 76561197960265728n;
         let idSplit = steamid.split(":");
         steam64id += BigInt(idSplit[2]) * 2n;
@@ -9,13 +9,13 @@ const steam_id = {
         return steam64id;
     },
 
-    from_steam64: function(sid) {
+    fromSteam64: function(sid) {
         let y = BigInt(sid) - 76561197960265728n;
         let x = y % 2n;
         return `STEAM_0:${x}:${(y - x) / 2n}`;
     },
 
-    from_account_id: function(accountId) {
+    fromAccountID: function(accountId) {
         accountId = BigInt(accountId);
         let y = accountId % 2n;
         let z = (accountId - y) / 2n;
@@ -26,5 +26,5 @@ const steam_id = {
 };
 
 module.exports = {
-    steam_id
+    SteamID
 };

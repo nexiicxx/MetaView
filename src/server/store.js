@@ -1,3 +1,5 @@
+const { Player } = require('../components/Player');
+
 class PlayerStore {
     constructor() {
         this.players = {
@@ -13,11 +15,11 @@ class PlayerStore {
 
         // Sort players into teams
         gameData.forEach(player => {
-            const playerData = {
-                name: player.name.replace('Aim Botz\r ', ''), // Clean up bot names
-                health: player.health,
-                steamid: player.steamid
-            };
+            const playerData = new Player(
+                player.name ? player.name.replace('Aim Botz\r ', '') : 'Unknown',
+                player.health,
+                player.steamid
+            );
 
             if (player.team === 3) {
                 this.players.ct.push(playerData);
