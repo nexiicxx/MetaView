@@ -79,9 +79,9 @@ export class PlayerCard {
     toggleSavePlayer() {
         const playerData = {
             name: this.name,
-            team: this.team,
             steamid64: this.steamid64,
-            initials: this.initials
+            initials: this.initials,
+            saveDate: new Date().toISOString()
         };
 
         if (this.configManager.isPlayerSaved(this.steamid64)) {
@@ -148,18 +148,29 @@ export class PlayerCard {
     }
 
     render() {
+        let dateStr = '';
+        if (this.team === 'saved') {
+            const player = this.configManager.getPlayer(this.steamid64);
+            if (player) {
+                dateStr = `<span class="save-date">${player.formattedDate}</span>`;
+            }
+        }
+        
         return `
             <div class="player-info">
                 <div class="player-avatar ${this.team}-avatar">${this.initials}</div>
                 <span class="player-name">${this.name}</span>
             </div>
-            <button class="menu-button">
-                <div class="menu-dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </button>
+            <div class="player-actions">
+                ${dateStr}
+                <button class="menu-button">
+                    <div class="menu-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </button>
+            </div>
         `;
     }
 } 

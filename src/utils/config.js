@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { formatDate } = require('./date');
 
 class ConfigManager {
     constructor() {
@@ -15,6 +16,18 @@ class ConfigManager {
         if (!fs.existsSync(this.configPath)) {
             fs.writeFileSync(this.configPath, JSON.stringify({ players: [] }, null, 2));
         }
+    }
+
+    getPlayer(steamid64) {
+        const players = this.loadSavedPlayers();
+        const player = players.find(p => p.steamid64 === steamid64);
+        if (player && player.saveDate) {
+            return {
+                ...player,
+                formattedDate: formatDate(player.saveDate)
+            };
+        }
+        return null;
     }
 
     loadSavedPlayers() {
