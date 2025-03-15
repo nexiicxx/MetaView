@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { steam_id, SteamID } = require('../utils/steam');
+const { SteamID } = require('../utils/steam');
 const playerStore = require('./store');
 
 class Server {
