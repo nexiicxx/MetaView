@@ -1,15 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { SteamID } = require('../utils/steam');
-const playerStore = require('./store');
+const routes = require('./routes');
 
 class Server {
     constructor(port = 3000) {
         this.port = port;
         this.app = express();
         this.isRunning = false;
-        this.clients = new Set();
         this.setupMiddleware();
         this.setupRoutes();
         this.setupErrorHandling();
@@ -20,6 +18,9 @@ class Server {
         this.app.use(express.json());
         this.app.use(express.static(path.join(__dirname, '..')));
         
+        // Store clients in app.locals for access in routes
+        this.app.locals.clients = new Set();
+        
         if (process.env.NODE_ENV === 'development') {
             this.app.use((req, res, next) => {
                 console.log(`${req.method} ${req.url}`);
@@ -29,98 +30,7 @@ class Server {
     }
 
     setupRoutes() {
-        this.app.get('/api/health', (req, res) => {
-            res.json({ 
-                status: 'ok',
-                uptime: process.uptime(),
-                serverRunning: this.isRunning
-            });
-        });
-
-        this.app.get("/api/steam/:id", (req, res) => {
-            const { id } = req.params;
-            const { legacy, steam64 } = SteamID.from_account_id(id);
-            res.json({
-                status: 'ok',
-                steamid64: steam64.toString(),  // convert BigInt to string
-                legacy: legacy,
-                steamid: id
-            });
-        });
-
-        // Get current players with SSE
-        this.app.get("/api/players", (req, res) => {
-            // Set SSE headers
-            res.writeHead(200, {
-                'Content-Type': 'text/event-stream',
-                'Cache-Control': 'no-cache',
-                'Connection': 'keep-alive'
-            });
-
-            // Send initial data
-            const data = JSON.stringify({
-                status: 'ok',
-                players: playerStore.getPlayers()
-            });
-            res.write(`data: ${data}\n\n`);
-
-            // Keep connection alive
-            const keepAlive = setInterval(() => {
-                res.write(': keepalive\n\n');
-            }, 30000);
-
-            // Add this client to our set
-            this.clients.add(res);
-
-            // Handle client disconnect
-            req.on('close', () => {
-                clearInterval(keepAlive);
-                this.clients.delete(res);
-            });
-        });
-        
-        this.app.post("/api/gamedata", (req, res) => {
-            let data = "";
-        
-            req.on("data", chunk => {
-                data += chunk;
-            });
-        
-            req.on("end", () => {
-                try {
-                    const parsedBody = JSON.parse(data);
-                    //console.log("Received game data:", parsedBody);
-
-                    // Update player store
-                    const players = playerStore.updatePlayers(parsedBody);
-                    //console.log("Updated players:", players);
-        
-                    // Send updates to all connected clients
-                    const updateData = JSON.stringify({
-                        status: 'ok',
-                        players: players
-                    });
-                    
-                    this.clients.forEach(client => {
-                        client.write(`data: ${updateData}\n\n`);
-                    });
-        
-                    res.json({
-                        status: 'success'
-                    });
-                } catch (error) {
-                    console.error("Error processing game data:", error);
-                    res.status(400).json({
-                        status: 'error',
-                        message: 'Invalid game data'
-                    });
-                }
-            });
-        });  
-        
-        this.app.use((req, res) => {
-            res.status(404).json({ error: 'Not found' });
-        });
+        this.app.use(routes);
     }
 
     setupErrorHandling() {
